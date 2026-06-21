@@ -17,7 +17,21 @@ python --version
 
 ## 第二步：获取本项目
 
-把整个项目文件夹（`问卷识别系统`）放到电脑上任意位置，例如 `D:\User\Documents\问卷识别系统`。
+1. 安装 Git：访问 **https://git-scm.com/downloads** 下载安装（一直点 Next 即可）
+2. 命令行进入你想存放的目录（例如 `D:\User\Documents`）：
+```
+cd /d D:\User\Documents
+```
+3. 从 GitHub 克隆项目（复制下面命令，**替换成你自己的仓库地址**）：
+```
+git clone https://github.com/Autumn-L1/------.git 问卷识别系统
+```
+4. 进入项目文件夹：
+```
+cd 问卷识别系统
+```
+
+> 仓库地址在 GitHub 仓库页面绿色「Code」按钮里复制。后续更新：`git pull`
 
 ---
 

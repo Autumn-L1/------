@@ -1,8 +1,12 @@
-# ---- 用户数据(不发布) ----
-data/*                
-out/*                
-work/*                
-logs/*              
+# ---- 用户数据(不发布内容，保留目录结构 via .gitkeep) ----
+data/*
+!data/.gitkeep
+out/*
+!out/.gitkeep
+work/*
+!work/.gitkeep
+logs/*
+!logs/.gitkeep
 
 
 # ---- 敏感配置(含 API key，不发布) ----
