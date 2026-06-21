@@ -381,6 +381,10 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as e:
                 self._send(200, json.dumps({"ok": False, "err": str(e)[:200]}))
             return
+        if u.path == "/api/reset_submit":
+            _save_submit_state({})
+            self._send(200, json.dumps({"ok": True}))
+            return
         if u.path == "/api/captcha_done":
             CAPTCHA_EVENT.set()
             self._send(200, json.dumps({"ok": True}))

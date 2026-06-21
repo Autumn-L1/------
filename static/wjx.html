@@ -74,6 +74,12 @@ async function saveUrl() {
     body: JSON.stringify({ url }) })).json();
   document.getElementById('urlMsg').textContent = r.ok ? '已保存 ✓' : '保存失败';
   setTimeout(() => document.getElementById('urlMsg').textContent = '', 2000);
+  // 链接变更后，询问是否重置提交状态（新问卷=重新提交）
+  if (r.ok && confirm('问卷星链接已更新。\n是否重置所有样本的提交状态为「未提交」？\n（换问卷/换批次时建议重置）')) {
+    await fetch('/api/reset_submit', { method: 'POST' });
+    load();
+    document.getElementById('statusText').textContent = '提交状态已重置';
+  }
 }
 async function load() {
   DATA = await (await fetch('/api/data')).json();
