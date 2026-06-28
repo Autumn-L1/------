@@ -119,11 +119,20 @@ let pollTimer = null;
 async function poll() {
   const s = await (await fetch('/api/wjx_status')).json();
   const pct = s.total ? (s.done / s.total * 100) : 0;
-  document.getElementById('barFill').style.width = pct + '%';
+  const bar = document.getElementById('barFill');
+  bar.style.width = pct + '%';
   const stage = s.current && s.current.stage ? '「'+s.current.stage+'」' : '';
-  document.getElementById('statusText').textContent = s.running
-    ? `进行中 ${s.done}/${s.total}${s.current ? '（当前：'+s.current.subject_id+stage+'）' : ''}`
-    : `完成 ${s.done}/${s.total}`;
+  const cw = s.captcha_wait;
+  if (cw) {
+    bar.style.background = '#e90';
+    document.getElementById('statusText').innerHTML =
+      `⚠ <b>样本${cw.subject_id}</b> 遇验证码，请在弹出的窗口处理（进度暂停）`;
+  } else {
+    bar.style.background = '#2a6';
+    document.getElementById('statusText').textContent = s.running
+      ? `进行中 ${s.done}/${s.total}${s.current ? '（当前：'+s.current.subject_id+stage+'）' : ''}`
+      : `完成 ${s.done}/${s.total}`;
+  }
   const subMap = {ok:'✓成功', pending:'⚠未成功(必填校验?)', captcha:'⚠验证码', fail:'✗失败', '-':'—(仅填写)'};
   document.getElementById('progress').innerHTML = (s.results||[]).map(r => {
     const sub = r.submit || '';
