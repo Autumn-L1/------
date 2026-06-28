@@ -664,9 +664,11 @@ class Handler(BaseHTTPRequestHandler):
         dirs = _sample_dirs()
         samples = []
         sid_idx = cols.index("subject_id") if "subject_id" in cols else -1
+        name_idx = cols.index("name") if "name" in cols else -1
         for i, d in enumerate(dirs):
             sid = rows[i][sid_idx] if (sid_idx >= 0 and i < len(rows)) else ""
-            samples.append({"idx": i, "name": d.name, "subject_id": sid})
+            nm = rows[i][name_idx] if (name_idx >= 0 and i < len(rows)) else d.name
+            samples.append({"idx": i, "name": nm, "subject_id": sid, "dir": d.name})
         # 问卷星特有字段：其他未尽事宜(每样本一个，第20页末填写，默认留空)
         if not any(g.get("cols") == ["wjx_other"] for g in groups):
             groups.append({"label": "其他未尽事宜 (问卷星特有，可留空)",
